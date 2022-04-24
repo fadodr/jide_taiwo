@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/provider/agent_provider.dart';
-import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
+import 'package:jidetaiwoapp/widgets/appbar_dashboard.dart';
 import 'package:provider/provider.dart';
 
 class AgentProfileScreen extends StatelessWidget {
@@ -23,19 +23,10 @@ class AgentProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final _agent = Provider.of<Agentprovider>(context).getAgent;
     return Scaffold(
-        appBar: AppBar(
-          backgroundColor: Theme.of(context).primaryColor,
-          automaticallyImplyLeading: false,
-          centerTitle: true,
-          title: Text(
-            'My Profile',
-            style: TextStyle(
-                fontFamily: Theme.of(context).textTheme.bodyText1!.fontFamily,
-                fontSize: 20),
-          ),
+        appBar: PreferredSize(
+          preferredSize: const Size.fromHeight(kToolbarHeight),
+          child: AppBarDashboardWidget('My Profile'),
         ),
-        drawerEnableOpenDragGesture: false,
-        drawer: const ClientDashboradMenuDrawer(),
         body: Container(
           decoration: const BoxDecoration(
               image: DecorationImage(

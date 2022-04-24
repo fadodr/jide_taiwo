@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
-import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
+import 'package:jidetaiwoapp/widgets/appbar_dashboard.dart';
 
 class ClientWalletScreen extends StatelessWidget {
   const ClientWalletScreen({Key? key}) : super(key: key);
@@ -11,14 +10,8 @@ class ClientWalletScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Builder(
-          builder: (context) => AppBarTwoWidget('My Wallet', () {
-            Scaffold.of(context).openDrawer();
-          }),
-        ),
+        child: AppBarDashboardWidget('My Wallet'),
       ),
-      drawerEnableOpenDragGesture: false,
-      drawer: const ClientDashboradMenuDrawer(),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(

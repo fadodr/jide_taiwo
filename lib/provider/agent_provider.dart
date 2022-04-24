@@ -86,7 +86,6 @@ class Agentprovider extends ChangeNotifier {
             'address': agent.clientAddress,
           });
       final responseData = json.decode(response.body) as Map<String, dynamic>;
-      print(responseData);
       if (responseData['error'] != null) {
         throw HttpException(responseData['error']);
       }

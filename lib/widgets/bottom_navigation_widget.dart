@@ -49,7 +49,6 @@ class _BottomNavigationWidgetState extends State<BottomNavigationWidget> {
                 Icons.person,
               ),
               label: 'Profile'),
-          if (widget.belongsTo == 'agent')
             BottomNavigationBarItem(
                 icon: IconButton(
                   padding: EdgeInsetsDirectional.zero,

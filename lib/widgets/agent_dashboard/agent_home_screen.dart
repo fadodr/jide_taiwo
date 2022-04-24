@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
 import 'package:jidetaiwoapp/provider/agent_provider.dart';
 import 'package:jidetaiwoapp/provider/property_provider.dart';
+import 'package:jidetaiwoapp/widgets/appbar_dashboard.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 import 'package:provider/provider.dart';
 
 class AgentHomeScreen extends StatelessWidget {
@@ -22,16 +22,9 @@ class AgentHomeScreen extends StatelessWidget {
 
     return Scaffold(
       backgroundColor: hextocolor('#E5E5E5'),
-      appBar: AppBar(
-        backgroundColor: Theme.of(context).primaryColor,
-        automaticallyImplyLeading: false,
-        centerTitle: true,
-        title: Text(
-          'My Dashboard',
-          style: TextStyle(
-              fontFamily: Theme.of(context).textTheme.bodyText1!.fontFamily,
-              fontSize: 20),
-        ),
+      appBar: PreferredSize(
+        preferredSize: const Size.fromHeight(kToolbarHeight),
+        child: AppBarDashboardWidget('My Dashboard'),
       ),
       body: Container(
         decoration: const BoxDecoration(

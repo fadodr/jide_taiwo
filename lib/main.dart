@@ -19,7 +19,6 @@ import 'package:jidetaiwoapp/screens/forgot_password_screen.dart';
 import 'package:jidetaiwoapp/screens/login_screen.dart';
 import 'package:jidetaiwoapp/screens/reset_password_screen.dart';
 import 'package:jidetaiwoapp/screens/signup_screen.dart';
-import 'package:jidetaiwoapp/screens/complaint_screen.dart';
 import 'package:jidetaiwoapp/screens/exploreproperty_screen.dart';
 import 'package:jidetaiwoapp/screens/facility_management_screen.dart';
 import 'package:jidetaiwoapp/screens/getintouch_screen.dart';
@@ -28,7 +27,6 @@ import 'package:jidetaiwoapp/screens/agent_dashboard_screen.dart';
 import 'package:jidetaiwoapp/screens/onboarding_screen.dart';
 import 'package:jidetaiwoapp/screens/edit_profile_screen.dart';
 import 'package:jidetaiwoapp/screens/project_management_screen.dart';
-import 'package:jidetaiwoapp/screens/properties_screen.dart';
 import 'package:jidetaiwoapp/screens/public_sector_screen.dart';
 import 'package:jidetaiwoapp/screens/searchforproperty_screen.dart';
 import 'package:jidetaiwoapp/screens/splashscreen.dart';
@@ -99,8 +97,6 @@ class MyApp extends StatelessWidget {
               const ProjectManagementScreen(),
           PublicSectorScreen.routename: (ctx) => const PublicSectorScreen(),
           AdvisoryScreen.routename: (ctx) => const AdvisoryScreen(),
-          PropertiesScreen.routename: (ctx) => const PropertiesScreen(),
-          ComplaintsScreen.routename: (ctx) => const ComplaintsScreen(),
           ChangePasswordScreen.routename: (ctx) => const ChangePasswordScreen(),
           ClientDashboardScreen.routename: (ctx) =>
               const ClientDashboardScreen(),

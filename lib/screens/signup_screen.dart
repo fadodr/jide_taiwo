@@ -24,8 +24,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final firstNumber = Random().nextInt(20);
-  final secondNumber = Random().nextInt(20);
+  final firstNumber = Random().nextInt(10);
+  final secondNumber = Random().nextInt(10);
   bool? checkboxValue = false;
   final _formkey = GlobalKey<FormState>();
   String _passwordcontroller = '';

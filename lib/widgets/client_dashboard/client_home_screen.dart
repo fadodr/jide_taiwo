@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
-import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
+import 'package:jidetaiwoapp/widgets/appbar_dashboard.dart';
 import 'package:jidetaiwoapp/widgets/client_dashboard_datatable_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 
 class ClientHomeScreen extends StatefulWidget {
   const ClientHomeScreen({Key? key}) : super(key: key);
@@ -19,14 +18,8 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
       backgroundColor: hextocolor('#E5E5E5'),
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Builder(
-          builder: (context) => AppBarTwoWidget('My Dashboard', () {
-            Scaffold.of(context).openDrawer();
-          }),
-        ),
+        child: AppBarDashboardWidget('My Dashboard'),
       ),
-      drawerEnableOpenDragGesture: false,
-      drawer: const ClientDashboradMenuDrawer(),
       body: Container(
         decoration: const BoxDecoration(
               image: DecorationImage(

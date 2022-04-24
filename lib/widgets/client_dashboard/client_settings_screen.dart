@@ -2,8 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
 import 'package:jidetaiwoapp/screens/change_password_screen.dart';
 import 'package:jidetaiwoapp/screens/edit_profile_screen.dart';
-import 'package:jidetaiwoapp/widgets/appbartwo_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
+import 'package:jidetaiwoapp/widgets/appbar_dashboard.dart';
 
 class ClientSettingScreen extends StatelessWidget {
   const ClientSettingScreen({Key? key}) : super(key: key);
@@ -13,14 +12,8 @@ class ClientSettingScreen extends StatelessWidget {
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
-        child: Builder(
-          builder: (context) => AppBarTwoWidget('Settings', () {
-            Scaffold.of(context).openDrawer();
-          }),
-        ),
+        child: AppBarDashboardWidget('Settings'),
       ),
-      drawerEnableOpenDragGesture: false,
-      drawer: const ClientDashboradMenuDrawer(),
       body: Container(
         decoration: const BoxDecoration(
             image: DecorationImage(

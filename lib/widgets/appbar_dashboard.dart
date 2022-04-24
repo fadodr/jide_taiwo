@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 
-class AppBarWidget extends StatelessWidget {
+class AppBarDashboardWidget extends StatelessWidget {
   final String title;
 
-  const AppBarWidget(this.title, {Key? key})
+  const AppBarDashboardWidget(this.title, {Key? key})
       : super(key: key);
 
   @override
@@ -13,22 +12,12 @@ class AppBarWidget extends StatelessWidget {
       backgroundColor: Theme.of(context).primaryColor,
       automaticallyImplyLeading: false,
       centerTitle: true,
-      leading: IconButton(
-        onPressed: () {
-          Navigator.of(context).pop();
-        },
-        icon: const Icon(
-          Icons.arrow_back,
-          color: Colors.white,
-          size: 28,
-        )),
       title: Text(
         title,
         style: TextStyle(
             fontFamily: Theme.of(context).textTheme.bodyText1!.fontFamily,
             fontSize: 20),
       ),
-      actions: [Container()],
     );
   }
 }

@@ -6,7 +6,6 @@ import 'package:jidetaiwoapp/model/client_model.dart';
 import 'package:jidetaiwoapp/provider/agent_provider.dart';
 import 'package:jidetaiwoapp/provider/client_provider.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
-import 'package:jidetaiwoapp/widgets/drawer/client_dashboard_menu_drawer.dart';
 import 'package:provider/provider.dart';
 import '../hextocolor.dart';
 
@@ -171,8 +170,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         ),
         actions: [Container()],
       ),
-      drawerEnableOpenDragGesture: false,
-      drawer: const ClientDashboradMenuDrawer(),
       body: Container(
           padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 30),
           decoration: BoxDecoration(
