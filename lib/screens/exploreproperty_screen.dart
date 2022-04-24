@@ -66,7 +66,6 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                       element.id.toString().toLowerCase() == item['propertyid'])
                   .toList();
             } else {
-              print(_searches);
               propertiesData = extractedPropertiesData
                   .where((element) =>
                       element.contract.toString().toLowerCase() ==
@@ -169,7 +168,13 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
             const SizedBox(
               height: 20,
             ),
-            Expanded(
+            propertiesData.isEmpty ? Expanded(
+              child: Center(
+                child: Text('No items found', style: TextStyle(
+                  fontSize: 18
+                ),),
+              ),
+            ) : Expanded(
                 child: ListView.builder(
                     itemCount: propertiesData.length,
                     itemBuilder: (ctx, index) => Column(
