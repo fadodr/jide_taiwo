@@ -67,17 +67,14 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                           element.price! <= double.parse(highPrice)) ||
                       element.id.toString().toLowerCase() == item['propertyid'])
                   .toList();
-            } else if (_searches.length == 1 && item['type'] != null) {
-              propertiesData = extractedPropertiesData;
             } else {
+              print(_searches);
               propertiesData = extractedPropertiesData
                   .where((element) =>
                       element.contract.toString().toLowerCase() ==
                           item['sale'] ||
                       element.numberOfRooms == item['bedrooms'] ||
                       element.numberOfBathrooms == item['bathrooms'] ||
-                      element.location.toString().toLowerCase() ==
-                          item['location'] ||
                       element.id.toString().toLowerCase() == item['propertyid'])
                   .toList();
             }

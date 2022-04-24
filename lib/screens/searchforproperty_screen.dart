@@ -59,8 +59,10 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
         }).toList(),
         onChanged: (value) {
           FocusScope.of(context).requestFocus(FocusNode());
-          _searches
-              .add({hintText.toLowerCase(): value.toString().toLowerCase()});
+          if(hintText.toLowerCase() != 'type' && hintText.toLowerCase() != 'location'){
+            _searches
+                .add({hintText.toLowerCase(): value.toString().toLowerCase()});
+          }
         },
       );
     }
