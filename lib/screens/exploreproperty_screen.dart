@@ -61,8 +61,6 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                           item['sale'] ||
                       element.numberOfRooms == item['bedrooms'] ||
                       element.numberOfBathrooms == item['bathrooms'] ||
-                      element.location.toString().toLowerCase() ==
-                          item['location'] ||
                       (double.parse(lowPrice) <= element.price! &&
                           element.price! <= double.parse(highPrice)) ||
                       element.id.toString().toLowerCase() == item['propertyid'])
