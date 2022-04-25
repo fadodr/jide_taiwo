@@ -700,25 +700,27 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                 ),
                 const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Checkbox(
-                        value: checkboxValue,
-                        checkColor: Colors.white,
-                        activeColor: Colors.black,
-                        tristate: false,
-                        onChanged: (value) {
-                          setState(() {
-                            checkboxValue = value;
-                          });
-                        }),
-                    Text(
-                      'I AGREE TO THESE',
-                      style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                            fontSize: 18,
-                          ),
-                    )
-                  ],
+                FittedBox(
+                  child: Row(
+                    children: [
+                      Checkbox(
+                          value: checkboxValue,
+                          checkColor: Colors.white,
+                          activeColor: Colors.black,
+                          tristate: false,
+                          onChanged: (value) {
+                            setState(() {
+                              checkboxValue = value;
+                            });
+                          }),
+                      Text(
+                        'I AGREE TO THESE TERMS AND CONDITION',
+                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
+                              fontSize: 18,
+                            ),
+                      )
+                    ],
+                  ),
                 )
               ],
             )),
