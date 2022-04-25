@@ -7,6 +7,7 @@ class Property {
   final String? location;
   final String? branch;
   final double? price;
+  final String? type;
   final String? contract;
   final String? numberOfRooms;
   final String? status;
@@ -24,6 +25,7 @@ class Property {
       @required this.location,
       @required this.branch,
       @required this.price,
+      @required this.type,
       @required this.contract,
       @required this.numberOfRooms,
       @required this.status,

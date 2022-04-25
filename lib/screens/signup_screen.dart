@@ -13,7 +13,6 @@ import 'package:jidetaiwoapp/screens/login_screen.dart';
 import 'package:jidetaiwoapp/widgets/appbar_widget.dart';
 import 'package:jidetaiwoapp/widgets/button_widget.dart';
 import 'package:provider/provider.dart';
-import 'dart:math';
 
 class SignupScreen extends StatefulWidget {
   static const routename = '/signuupscreen';
@@ -24,16 +23,30 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
-  final firstNumber = Random().nextInt(10);
-  final secondNumber = Random().nextInt(10);
   bool? checkboxValue = false;
   final _formkey = GlobalKey<FormState>();
-  String _passwordcontroller = '';
   bool showError = false;
   String errorMessage = '';
   bool isLoading = false;
   bool _obscurepassword = true;
+  bool _obscureconfirmpassword = true;
+  final TextEditingController fullnamecontroller = TextEditingController();
+  final TextEditingController emailcontroller = TextEditingController();
+  final TextEditingController mobilenumbercontroller = TextEditingController(); 
+  final  TextEditingController passwordcontroller = TextEditingController();
+  final TextEditingController confirmpasswordcontroller = TextEditingController();
   AccountType? currentlyselected;
+
+
+  @override
+  void dispose() {
+    fullnamecontroller.dispose();
+    emailcontroller.dispose();
+    mobilenumbercontroller.dispose();
+    passwordcontroller.dispose();
+    confirmpasswordcontroller.dispose();
+    super.dispose();
+  }
   Client _client = Client(
       clientId: '',
       clientName: '',
@@ -76,17 +89,21 @@ class _SignupScreenState extends State<SignupScreen> {
     if (checkboxValue == false) {
       errorMessage =
           'You have to agree to our terms and condition before you can sign up';
+      setState(() {
+          showError = true;
+          isLoading = false;
+        });
     } else {
       errorMessage = '';
       try {
         if (appbarText.toLowerCase() == 'client') {
           await Provider.of<Clientprovider>(context, listen: false)
-              .signupUser(_client, _passwordcontroller);
+              .signupUser(_client, passwordcontroller.text);
           Navigator.of(context).popAndPushNamed(LoginScreen.routename,
               arguments: {'justSignUp': true, 'appbarText': 'client'});
         } else {
           await Provider.of<Agentprovider>(context, listen: false)
-              .signupUser(_agent, _passwordcontroller);
+              .signupUser(_agent, passwordcontroller.text);
           Navigator.of(context).popAndPushNamed(LoginScreen.routename,
               arguments: {'justSignUp': true, 'appbarText': 'agent'});
         }
@@ -113,7 +130,7 @@ class _SignupScreenState extends State<SignupScreen> {
   }
 
   Widget _inputForm(
-      String appbarText, String label, TextEditingController controller) {
+      String appbarText, String label, TextEditingController controller, bool obscureText) {
     return TextFormField(
         decoration: InputDecoration(
           labelText: label,
@@ -129,23 +146,28 @@ class _SignupScreenState extends State<SignupScreen> {
                   Icons.mail_outline,
                   size: 18,
                 )
-              : label.trim().toLowerCase() == 'password'
+              : label.trim().toLowerCase() == 'password' || label.toLowerCase() == 'confirm password'
                   ? Icon(
                       Icons.lock_outline,
                       size: 18,
                     )
                   : null,
-          suffixIcon: label.toLowerCase() == 'password'
+          suffixIcon: label.toLowerCase() == 'password' || label.toLowerCase() == 'confirm password'
               ? IconButton(
                   splashColor: Colors.transparent,
                   highlightColor: Colors.transparent,
                   onPressed: () {
                     setState(() {
-                      _obscurepassword = !_obscurepassword;
+                      if (label.toLowerCase() == 'password') {
+                        _obscurepassword = !_obscurepassword;
+                      }
+                      if (label.toLowerCase() == 'confirm password') {
+                        _obscureconfirmpassword = !_obscureconfirmpassword;
+                      }
                     });
                   },
                   icon: Icon(
-                      _obscurepassword
+                      obscureText
                           ? Icons.visibility_off
                           : Icons.visibility,
                       size: 18))
@@ -163,14 +185,21 @@ class _SignupScreenState extends State<SignupScreen> {
               borderRadius: BorderRadius.circular(6),
               borderSide: const BorderSide(color: Colors.blue)),
         ),
-        obscureText:
-            label.toLowerCase() == 'password' ? _obscurepassword : false,
+        obscureText: obscureText,
         controller: controller,
         validator: (value) {
           if (value == null || value.isEmpty) {
             return 'field cannot be empty';
           }
-          if (label.toLowerCase() == 'password') {
+          if ((label.toLowerCase() == 'password' &&
+                    passwordcontroller.text !=
+                        confirmpasswordcontroller.text) ||
+                label.toLowerCase() == 'confirm password' &&
+                    passwordcontroller.text !=
+                        confirmpasswordcontroller.text) {
+              return 'password does not match';
+            }
+          if (label.toLowerCase() == 'password' || label.toLowerCase() == 'confirm password') {
             bool hasMinLength = value.length >= 6;
             if (!hasMinLength) {
               return 'password must be greater than 6 characters';
@@ -207,9 +236,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 clientDistrict: _client.clientDistrict,
                 clientState: _client.clientState,
                 lastLogin: _client.lastLogin);
-            if (label.toString().toLowerCase() == 'password') {
-              _passwordcontroller = value.toString();
-            }
           } else {
             _agent = Agent(
                 clientId: _agent.clientId,
@@ -227,9 +253,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 clientAddress: _agent.clientAddress,
                 clientDistrict: _agent.clientDistrict,
                 clientState: _agent.clientState);
-            if (label.toString().toLowerCase() == 'password') {
-              _passwordcontroller = value.toString();
-            }
           }
         },
         onSaved: (value) {
@@ -250,9 +273,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 clientDistrict: _client.clientDistrict,
                 clientState: _client.clientState,
                 lastLogin: _client.lastLogin);
-            if (label.toString().toLowerCase() == 'password') {
-              _passwordcontroller = value.toString();
-            }
           } else {
             _agent = Agent(
                 clientId: _agent.clientId,
@@ -270,9 +290,6 @@ class _SignupScreenState extends State<SignupScreen> {
                 clientAddress: _agent.clientAddress,
                 clientDistrict: _agent.clientDistrict,
                 clientState: _agent.clientState);
-            if (label.toString().toLowerCase() == 'password') {
-              _passwordcontroller = value.toString();
-            }
           }
         });
   }
@@ -283,6 +300,15 @@ class _SignupScreenState extends State<SignupScreen> {
         ModalRoute.of(context)!.settings.arguments as Map<String, dynamic>;
     final _dropDownList =
         Provider.of<AccountTypeProvider>(context, listen: false).getaccountType;
+    fullnamecontroller.text = _args['appbarText'].toLowerCase() == 'client'
+                            ? _client.clientName!
+                            : _agent.clientName!;
+    emailcontroller.text = _args['appbarText'].toLowerCase() == 'client'
+                            ? _client.emailAddress!
+                            : _agent.clientEmail!;
+    mobilenumbercontroller.text = _args['appbarText'].toLowerCase() == 'client'
+                            ? _client.phoneNumber!
+                            : _agent.clientMobileNumber!;
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
@@ -329,30 +355,22 @@ class _SignupScreenState extends State<SignupScreen> {
                 _inputForm(
                     _args['appbarText'],
                     'Full name',
-                    TextEditingController(
-                        text: _args['appbarText'].toLowerCase() == 'client'
-                            ? _client.clientName
-                            : _agent.clientName)),
+                    fullnamecontroller
+                    ,false),
                 const SizedBox(
                   height: 20,
                 ),
                 _inputForm(
                     _args['appbarText'],
                     'Mobile number',
-                    TextEditingController(
-                        text: _args['appbarText'].toLowerCase() == 'client'
-                            ? _client.phoneNumber
-                            : _agent.clientMobileNumber)),
+                    mobilenumbercontroller,false),
                 const SizedBox(
                   height: 20,
                 ),
                 _inputForm(
                     _args['appbarText'],
                     'Email',
-                    TextEditingController(
-                        text: _args['appbarText'].toLowerCase() == 'client'
-                            ? _client.emailAddress
-                            : _agent.clientEmail)),
+                    emailcontroller, false),
                 const SizedBox(
                   height: 20,
                 ),
@@ -546,62 +564,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   height: 20,
                 ),
                 _inputForm(_args['appbarText'], 'Password',
-                    TextEditingController(text: _passwordcontroller)),
+                     passwordcontroller, _obscurepassword),
                 const SizedBox(
                   height: 20,
                 ),
-                RichText(
-                    text: TextSpan(
-                        style: Theme.of(context).textTheme.bodyText1!.copyWith(
-                              fontSize: 14,
-                            ),
-                        children: [
-                      TextSpan(
-                          text: 'Security code',
-                          style: TextStyle(color: hextocolor('#C4C4C4'))),
-                      const TextSpan(text: '  '),
-                      TextSpan(
-                          text: 'What is $firstNumber * $secondNumber ?',
-                          style: TextStyle(color: hextocolor('#5E5B5B')))
-                    ])),
-                const SizedBox(
-                  height: 5,
-                ),
-                TextFormField(
-                    keyboardType: TextInputType.text,
-                    decoration: InputDecoration(
-                      hintText: 'Enter the security code shown above',
-                      hintStyle: Theme.of(context)
-                          .textTheme
-                          .bodyText1!
-                          .copyWith(fontSize: 16, color: hextocolor('#C4C4C4')),
-                      filled: true,
-                      fillColor: hextocolor('#FAFAFA'),
-                      enabledBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: const BorderSide(color: Colors.white)),
-                      focusedBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: const BorderSide(color: Colors.blue)),
-                      errorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: const BorderSide(color: Colors.red)),
-                      focusedErrorBorder: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(6),
-                          borderSide: const BorderSide(color: Colors.blue)),
-                    ),
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'field cannot be empty';
-                      }
-                      if (!isNumeric(value)) {
-                        return 'Incorrect security code';
-                      }
-                      if ((firstNumber * secondNumber) != int.parse(value)) {
-                        return 'Incorrect security code';
-                      }
-                      return null;
-                    }),
+                _inputForm(_args['appbarText'], 'Confirm Password', confirmpasswordcontroller, _obscureconfirmpassword),
                 const SizedBox(
                   height: 40,
                 ),
@@ -714,7 +681,7 @@ class _SignupScreenState extends State<SignupScreen> {
                             });
                           }),
                       Text(
-                        'I AGREE TO THESE TERMS AND CONDITION',
+                        'I AGREE TO THESE TERMS AND CONDITIONS',
                         style: Theme.of(context).textTheme.bodyText1!.copyWith(
                               fontSize: 18,
                             ),

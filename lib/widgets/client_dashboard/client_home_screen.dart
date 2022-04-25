@@ -32,7 +32,7 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
                   padding: const EdgeInsets.only(
-                      top: 20, bottom: 50, left: 50, right: 20),
+                      top: 20, bottom: 50, left: 10, right: 10),
                   decoration: BoxDecoration(
                       color: Theme.of(context).primaryColor,
                       borderRadius: BorderRadius.circular(15)),
@@ -46,40 +46,30 @@ class _ClientHomeScreenState extends State<ClientHomeScreen> {
                       const SizedBox(
                         height: 20,
                       ),
-                      Row(
-                        children: [
-                          showRent
-                              ? const Expanded(
-                                child: Text('Unavailable',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white)),
-                              )
-                              : const Expanded(
-                                child: Text('********',
-                                    textAlign: TextAlign.left,
-                                    style: TextStyle(
-                                        fontSize: 24,
-                                        fontWeight: FontWeight.w600,
-                                        color: Colors.white)),
-                              ),
-                          const SizedBox(
-                            width: 20,
-                          ),
-                          IconButton(onPressed: (){
-                            setState(() {
-                              showRent = !showRent;
-                            });
-                          }, icon: showRent ? const Icon(
-                            Icons.visibility,
-                            color: Colors.white,
-                          ) : const Icon(
-                            Icons.visibility_off,
-                            color: Colors.white,
-                          ))
-                        ],
+                      FittedBox(
+                        child: Row(
+                          crossAxisAlignment: CrossAxisAlignment.center,
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            Text('XXX XXX XXX',
+                                style: TextStyle(
+                                    fontSize: 24,
+                                    fontWeight: FontWeight.w600,
+                                    color: Colors.white)),
+                            SizedBox(width: 10,),
+                            IconButton(onPressed: (){
+                              setState(() {
+                                showRent = !showRent;
+                              });
+                            }, icon: showRent ? const Icon(
+                              Icons.visibility,
+                              color: Colors.white,
+                            ) : const Icon(
+                              Icons.visibility_off,
+                              color: Colors.white,
+                            ))
+                          ],
+                        ),
                       ),
                     ],
                   ),

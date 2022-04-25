@@ -32,6 +32,7 @@ class PropertyProvider extends ChangeNotifier {
               location: data['location'],
               branch: data['branch'],
               price: double.parse(data['propertyprice']),
+              type: data['propertytype'],
               contract: data['propertycontract'],
               numberOfRooms: data['bedroom'],
               status: data['propertystatus'],

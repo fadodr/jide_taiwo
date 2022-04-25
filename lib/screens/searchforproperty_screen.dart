@@ -59,7 +59,7 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
         }).toList(),
         onChanged: (value) {
           FocusScope.of(context).requestFocus(FocusNode());
-          if(hintText.toLowerCase() != 'type' && hintText.toLowerCase() != 'location'){
+          if(hintText.toLowerCase() != 'location'){
             _searches
                 .add({hintText.toLowerCase(): value.toString().toLowerCase()});
           }
@@ -95,7 +95,7 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
                 children: [
                   Expanded(
                       child: _dropdownform('Type', [
-                    'Commercial & Industrial',
+                    'Commercial and Industrial',
                     'Land',
                     'Mixed use',
                     'Residential'

@@ -61,16 +61,19 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                           item['sale'] ||
                       element.numberOfRooms == item['bedrooms'] ||
                       element.numberOfBathrooms == item['bathrooms'] ||
+                      element.type.toString().toLowerCase() == item['type'] ||
                       (double.parse(lowPrice) <= element.price! &&
                           element.price! <= double.parse(highPrice)) ||
                       element.id.toString().toLowerCase() == item['propertyid'])
                   .toList();
             } else {
+              print(_searches);
               propertiesData = extractedPropertiesData
                   .where((element) =>
                       element.contract.toString().toLowerCase() ==
                           item['sale'] ||
                       element.numberOfRooms == item['bedrooms'] ||
+                      element.type.toString().toLowerCase() == item['type'] ||
                       element.numberOfBathrooms == item['bathrooms'] ||
                       element.id.toString().toLowerCase() == item['propertyid'])
                   .toList();
@@ -268,7 +271,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          'Rooms: ${propertiesData[index].numberOfRooms}',
+                                          'Type: ${propertiesData[index].type}',
                                           textAlign: TextAlign.end,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',
@@ -353,26 +356,13 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                   Row(
                                     children: [
                                       Expanded(
-                                        child: Row(
-                                          mainAxisAlignment:
-                                              MainAxisAlignment.start,
-                                          children: [
-                                            Icon(
-                                              Icons.remove_red_eye,
-                                              size: 18,
-                                              color: hextocolor('#5694C1'),
-                                            ),
-                                            const SizedBox(
-                                              width: 5,
-                                            ),
-                                            Text(
-                                              '${propertiesData[index].numberOfViews} views',
-                                              style: TextStyle(
-                                                  fontFamily: 'Roboto',
-                                                  fontSize: 14,
-                                                  color: hextocolor('#5694C1')),
-                                            )
-                                          ],
+                                        child: Text(
+                                          'Rooms: ${propertiesData[index].numberOfRooms}',
+                                          textAlign: TextAlign.start,
+                                          style: TextStyle(
+                                              fontFamily: 'Roboto',
+                                              fontSize: 14,
+                                              color: hextocolor('#5694C1')),
                                         ),
                                       ),
                                       if (propertiesData[index].parking == true)

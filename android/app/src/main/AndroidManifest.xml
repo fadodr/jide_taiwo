@@ -2,7 +2,7 @@
     package="com.example.jidetaiwoapp">
   <uses-permission android:name="android.permission.INTERNET"/>
    <application
-        android:label="Jide Taiwo"
+        android:label="Jide Taiwo &amp; Co"
         android:icon="@mipmap/launcher_icon">
         <activity
             android:name=".MainActivity"
