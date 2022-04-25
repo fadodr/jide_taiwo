@@ -23,7 +23,8 @@ class PropertyProvider extends ChangeNotifier {
         var extractedData = json.decode(reply) as List<dynamic>;
         httpClient.close();
         List<Property> loadedProperties = [];
-        for (var data in extractedData) {
+        if(extractedData.length != 0){
+          for (var data in extractedData) {
           loadedProperties.add(Property(
               id: data['id'],
               description: data['propertydescription'],
@@ -40,6 +41,7 @@ class PropertyProvider extends ChangeNotifier {
               balcony: true,
               parking: true,
               clientMobile: data['clientmobile']));
+          }
         }
         _propertiesData = loadedProperties;
         notifyListeners();

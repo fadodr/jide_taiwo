@@ -29,14 +29,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
   final _formKey = GlobalKey<FormState>();
   TextEditingController _namecontroller = TextEditingController();
   TextEditingController _phonecontroller = TextEditingController();
-  TextEditingController _emailcontroller = TextEditingController();
   TextEditingController _addresscontroller = TextEditingController();
 
   @override
   void dispose() {
     _namecontroller.dispose();
     _phonecontroller.dispose();
-    _emailcontroller.dispose();
     _addresscontroller.dispose();
     super.dispose();
   }
@@ -75,6 +73,7 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
 
   Future<void> submitform(BuildContext context) async {
     setState(() {
+      showError = false;
       isLoading = true;
     });
     try {
@@ -82,13 +81,11 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
         await Provider.of<Clientprovider>(context, listen: false).updateUser(
             name: _namecontroller.text,
             phoneNumber: _phonecontroller.text,
-            email: _emailcontroller.text,
             address: _addresscontroller.text);
       } else {
         await Provider.of<Agentprovider>(context, listen: false).updateUser(
             name: _namecontroller.text,
             phoneNumber: _phonecontroller.text,
-            email: _emailcontroller.text,
             address: _addresscontroller.text);
       }
       setState(() {
@@ -109,6 +106,9 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
     } catch (error) {
       if (error.toString().contains('HttpException')) {
         errorMessage = error.toString().split('HttpException: ')[1];
+        if (errorMessage.contains('Validation error')) {
+          errorMessage = 'Email address already exist';
+        }
       } else {
         errorMessage = 'An error occurred, try again later';
       }
@@ -132,10 +132,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
           text: _option.toString().toLowerCase() == 'client'
               ? _client!.clientName
               : _agent!.clientName);
-      _emailcontroller = TextEditingController(
-          text: _option.toString().toLowerCase() == 'client'
-              ? _client!.emailAddress
-              : _agent!.clientEmail);
       _phonecontroller = TextEditingController(
           text: _option.toString().toLowerCase() == 'client'
               ? _client!.phoneNumber
@@ -202,10 +198,6 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                   const SizedBox(
                     height: 15,
                   ),
-                  _buildTextForm('Email', _emailcontroller),
-                  const SizedBox(
-                    height: 15,
-                  ),
                   _buildTextForm('Address', _addresscontroller),
                   const SizedBox(
                     height: 40,
@@ -217,11 +209,12 @@ class _EditProfileScreenState extends State<EditProfileScreen> {
                       style: Theme.of(context)
                           .textTheme
                           .bodyText1!
-                          .copyWith(
-                              fontSize: 14, color: hextocolor('#A19898')),
+                          .copyWith(fontSize: 14, color: hextocolor('#A19898')),
                     ),
                   ),
-                  SizedBox(height: 40,),
+                  SizedBox(
+                    height: 40,
+                  ),
                   isLoading
                       ? ElevatedButton(
                           style: ElevatedButton.styleFrom(

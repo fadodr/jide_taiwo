@@ -99,7 +99,6 @@ class Clientprovider extends ChangeNotifier {
   Future<void> updateUser(
       {String? name,
       String? phoneNumber,
-      String? email,
       String? address}) async {
     try {
       final response = await http.put(
@@ -110,7 +109,6 @@ class Clientprovider extends ChangeNotifier {
           },
           body: {
             'name': name,
-            'email': email.toString().toLowerCase(),
             'phone': phoneNumber,
             'address': address
           });
@@ -122,7 +120,7 @@ class Clientprovider extends ChangeNotifier {
           clientId: _client!.clientId,
           clientName: responseData['client']['name'],
           phoneNumber: responseData['client']['mobile'],
-          emailAddress: responseData['client']['email'],
+          emailAddress: _client!.emailAddress,
           clientCategory: _client!.clientCategory,
           clientAddress: responseData['client']['address'],
           clientDistrict: _client!.clientDistrict,

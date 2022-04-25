@@ -22,12 +22,14 @@ class ClientDashboardProvider extends ChangeNotifier {
       String reply = await response.transform(utf8.decoder).join();
       var extractedData = json.decode(reply) as List<dynamic>;
       List<ClientDashboard> loadedClientDashboardInfo = [];
-      for(var clientInfo in extractedData){
+      if(extractedData.length != 0){
+        for(var clientInfo in extractedData){
          loadedClientDashboardInfo.add(ClientDashboard(
             property: clientInfo['title'],
             type: clientInfo['propertytype'],
             tenancy: clientInfo['propertystatus'],
             contract: clientInfo['propertycontract']));
+        }
       }
       httpClient.close();
       _clientDashboard = loadedClientDashboardInfo;

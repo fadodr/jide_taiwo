@@ -19,10 +19,12 @@ class AccountTypeProvider extends ChangeNotifier {
         final responseData =
             json.decode(response.body)['categories'] as List<dynamic>;
         List<AccountType> _loadedAccountType = [];
-        responseData.forEach((accountType) {
-          _loadedAccountType
-              .add(AccountType(accountType['id'], accountType['name']));
-        });
+        if(responseData.length != 0){
+          responseData.forEach((accountType) {
+            _loadedAccountType
+                .add(AccountType(accountType['id'], accountType['name']));
+          });
+        }
         _accountType = _loadedAccountType;
         notifyListeners();
       } catch (error) {

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:jidetaiwoapp/screens/home_screen.dart';
 import 'package:jidetaiwoapp/widgets/bottom_navigation_widget.dart';
 import 'package:jidetaiwoapp/widgets/client_dashboard/client_home_screen.dart';
 import 'package:jidetaiwoapp/widgets/client_dashboard/client_settings_screen.dart';
@@ -18,7 +19,7 @@ class _ClientDashboardScreenState extends State<ClientDashboardScreen> {
     const ClientHomeScreen(),
     const ClientWalletScreen(),
     const ClientSettingScreen(),
-    const ClientProfileScreen()
+    const ClientProfileScreen(),
   ];
 
   int navigationBarCurrentIndex = 0;
@@ -29,7 +30,9 @@ class _ClientDashboardScreenState extends State<ClientDashboardScreen> {
       body: _screenToDispaly[navigationBarCurrentIndex],
       bottomNavigationBar: BottomNavigationWidget((index) {
         setState(() {
-          navigationBarCurrentIndex = index;
+          if (index != 4) {
+            navigationBarCurrentIndex = index;
+          }
         });
       }, navigationBarCurrentIndex, 'client'),
     );

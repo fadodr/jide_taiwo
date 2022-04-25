@@ -100,10 +100,7 @@ class _SignupScreenState extends State<SignupScreen> {
         ));
       } catch (error) {
         if (error.toString().contains('HttpException')) {
-          final extractedMessage = error.toString().split('HttpException: ')[1];
-          if (extractedMessage.trim() == 'EMAIL_EXISTS') {
-            errorMessage = 'Email already exist, try another email address';
-          }
+          errorMessage = error.toString().split('HttpException: ')[1];
         } else {
           errorMessage = 'An error occurred, try again later';
         }
