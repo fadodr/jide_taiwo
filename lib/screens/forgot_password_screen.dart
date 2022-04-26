@@ -73,7 +73,7 @@ class _ForgotPasswordScreenState extends State<ForgotPasswordScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
-          builder: (context) => const AppBarWidget('Forget Password'),
+          builder: (context) => const AppBarWidget('Forget Password', null),
         ),
       ),
       body: Container(

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:jidetaiwoapp/hextocolor.dart';
+import 'package:jidetaiwoapp/screens/home_screen.dart';
 import 'package:jidetaiwoapp/screens/onboarding_screen.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class SplashScreen extends StatefulWidget {
   const SplashScreen({Key? key}) : super(key: key);
@@ -17,8 +19,16 @@ class _SplashScreenState extends State<SplashScreen> {
   }
 
   Future<void> navigateScreen() async {
-    Future.delayed(const Duration(seconds: 8), () {
-      Navigator.of(context).pushNamed(OnboardingScreen.routename);
+    Future.delayed(const Duration(seconds: 8), () async {
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      bool _seen = prefs.getBool('seen') ?? false;
+
+      if (_seen) {
+        Navigator.of(context).pushReplacementNamed(HomeScreen.routename);
+      } else {
+        await prefs.setBool('seen', true);
+        Navigator.of(context).pushReplacementNamed(OnboardingScreen.routename);
+      }
     });
   }
 

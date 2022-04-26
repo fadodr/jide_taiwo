@@ -14,7 +14,6 @@ class SearchforpropertyScreen extends StatefulWidget {
 
 class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
   List _searches = [];
-
   TextEditingController _propertyId = TextEditingController();
 
   @override
@@ -68,9 +67,17 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
     }
 
     return Scaffold(
-      appBar: const PreferredSize(
+      appBar: PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('Search for Properties'),
+        child: AppBarWidget('Search for Properties', IconButton(
+        onPressed: () {
+          Navigator.pop(context, _searches);
+        },
+        icon: const Icon(
+          Icons.arrow_back,
+          color: Colors.white,
+          size: 28,
+        ))),
       ),
       body: Container(
         decoration: const BoxDecoration(

@@ -11,7 +11,7 @@ class AuctionScreen extends StatelessWidget {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('Auctions'),
+        child: AppBarWidget('Auctions', null),
       ),
       body: Container(
         decoration: BoxDecoration(

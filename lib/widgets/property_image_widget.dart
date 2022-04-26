@@ -6,22 +6,9 @@ import 'package:jidetaiwoapp/model/property_image_model.dart';
 import 'package:jidetaiwoapp/provider/property_image_provider.dart';
 import 'package:provider/provider.dart';
 
-class PropertyImageWidget extends StatefulWidget {
+class PropertyImageWidget extends StatelessWidget {
   final String id;
   const PropertyImageWidget({Key? key, required this.id}) : super(key: key);
-
-  @override
-  State<PropertyImageWidget> createState() => _PropertyImageWidgetState();
-}
-
-class _PropertyImageWidgetState extends State<PropertyImageWidget> {
-  late Future<String?> _futureData;
-
-  @override
-  void initState() {
-    super.initState();
-    _futureData = _getPropertyImages(context, widget.id);
-  }
 
   Future<String?> _getPropertyImages(BuildContext context, String id) async {
     final Map<String, PropertyImage> properyImages =
@@ -38,7 +25,7 @@ class _PropertyImageWidgetState extends State<PropertyImageWidget> {
   @override
   Widget build(BuildContext context) {
     return FutureBuilder(
-        future: _futureData,
+        future: _getPropertyImages(context, id),
         builder: (context, data) {
           if (data.hasData) {
             return SizedBox(

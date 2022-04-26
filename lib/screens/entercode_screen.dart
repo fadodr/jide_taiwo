@@ -84,7 +84,7 @@ class _EnterCodeScreenState extends State<EnterCodeScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
-          builder: (context) => const AppBarWidget('Check your email'),
+          builder: (context) => const AppBarWidget('Check your email', null),
         ),
       ),
       body: Container(

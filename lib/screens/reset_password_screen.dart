@@ -213,7 +213,7 @@ class _ResetPasswordScreenState extends State<ResetPasswordScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
-          builder: (context) => const AppBarWidget('Reset Password'),
+          builder: (context) => const AppBarWidget('Reset Password', null),
         ),
       ),
       body: Container(

@@ -25,6 +25,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
   List _searches = [];
   List<Property> extractedPropertiesData = [];
   List<Property> propertiesData = [];
+  ScrollController listScrollController = ScrollController();
 
   @override
   void initState() {
@@ -67,7 +68,6 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                       element.id.toString().toLowerCase() == item['propertyid'])
                   .toList();
             } else {
-              print(_searches);
               propertiesData = extractedPropertiesData
                   .where((element) =>
                       element.contract.toString().toLowerCase() ==
@@ -81,6 +81,10 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
           }
         } else {
           propertiesData = extractedPropertiesData;
+        }
+        if (listScrollController.hasClients) {
+          final position = listScrollController.position.minScrollExtent;
+          listScrollController.jumpTo(position);
         }
         setState(() {});
       });
@@ -138,7 +142,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
-          builder: (context) => const AppBarWidget('Explore our properties'),
+          builder: (context) => const AppBarWidget('Explore our properties', null),
         ),
       ),
       body: Container(
@@ -179,6 +183,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
               ),
             ) : Expanded(
                 child: ListView.builder(
+                    controller: listScrollController,
                     itemCount: propertiesData.length,
                     itemBuilder: (ctx, index) => Column(
                           children: [
@@ -207,7 +212,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          'Office ID: ${propertiesData[index].officeId}',
+                                          'Office ID: ${propertiesData[index].officeId ?? 'Not Specified'}',
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',
@@ -217,7 +222,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          'Location: ${propertiesData[index].location}',
+                                          'Location: ${propertiesData[index].location ?? 'Not Specified'}',
                                           textAlign: TextAlign.end,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',
@@ -234,7 +239,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          'Branch: ${propertiesData[index].branch}',
+                                          'Branch: ${propertiesData[index].branch ?? 'Not Specified'}',
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',
@@ -261,7 +266,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          'Contract: ${propertiesData[index].contract}',
+                                          'Contract: ${propertiesData[index].contract ?? 'Not Specified'}',
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',
@@ -271,7 +276,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          'Type: ${propertiesData[index].type}',
+                                          'Type: ${propertiesData[index].type ?? 'Not Specified'}',
                                           textAlign: TextAlign.end,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',
@@ -288,7 +293,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          'Status: ${propertiesData[index].status}',
+                                          'Status: ${propertiesData[index].status ?? 'Not Specified'}',
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',
@@ -298,7 +303,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                       ),
                                       Expanded(
                                         child: Text(
-                                          'Area: ${propertiesData[index].area}',
+                                          'Area: ${propertiesData[index].area ?? 'Not Specified'}',
                                           textAlign: TextAlign.end,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',
@@ -315,7 +320,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          'Bathrooms: ${propertiesData[index].numberOfBathrooms}',
+                                          'Bathrooms: ${propertiesData[index].numberOfBathrooms ?? 'Not Specified'}',
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',
@@ -357,7 +362,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
                                     children: [
                                       Expanded(
                                         child: Text(
-                                          'Rooms: ${propertiesData[index].numberOfRooms}',
+                                          'Rooms: ${propertiesData[index].numberOfRooms ?? 'Not Specified'}',
                                           textAlign: TextAlign.start,
                                           style: TextStyle(
                                               fontFamily: 'Roboto',

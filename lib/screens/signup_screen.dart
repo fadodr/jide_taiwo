@@ -314,7 +314,7 @@ class _SignupScreenState extends State<SignupScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
           builder: (context) =>
-              AppBarWidget('${_args['appbarText'].toUpperCase()} SIGN UP'),
+              AppBarWidget('${_args['appbarText'].toUpperCase()} SIGN UP', null),
         ),
       ),
       body: Container(

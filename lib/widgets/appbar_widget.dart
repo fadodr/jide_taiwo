@@ -3,8 +3,9 @@ import 'package:flutter_svg/flutter_svg.dart';
 
 class AppBarWidget extends StatelessWidget {
   final String title;
+  final Widget? ontap;
 
-  const AppBarWidget(this.title, {Key? key})
+  const AppBarWidget(this.title,this.ontap, {Key? key})
       : super(key: key);
 
   @override
@@ -13,7 +14,7 @@ class AppBarWidget extends StatelessWidget {
       backgroundColor: Theme.of(context).primaryColor,
       automaticallyImplyLeading: false,
       centerTitle: true,
-      leading: IconButton(
+      leading: this.ontap ?? IconButton(
         onPressed: () {
           Navigator.of(context).pop();
         },

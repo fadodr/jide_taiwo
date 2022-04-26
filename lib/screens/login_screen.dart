@@ -179,7 +179,7 @@ class _LoginScreenState extends State<LoginScreen> {
         preferredSize: const Size.fromHeight(kToolbarHeight),
         child: Builder(
           builder: (context) =>
-              AppBarWidget('${_args['appbarText'].toUpperCase()} LOGIN'),
+              AppBarWidget('${_args['appbarText'].toUpperCase()} LOGIN', null),
         ),
       ),
       body: Container(

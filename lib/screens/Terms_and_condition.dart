@@ -12,7 +12,7 @@ class TermsScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: const PreferredSize(
-          child: AppBarWidget('Terms And Conditions'),
+          child: AppBarWidget('Terms And Conditions', null),
           preferredSize: Size.fromHeight(kToolbarHeight)),
       body: SingleChildScrollView(
       child: Column(

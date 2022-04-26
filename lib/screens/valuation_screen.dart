@@ -14,7 +14,7 @@ class ValuationScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: const PreferredSize(
-            child: AppBarWidget('Valuation'),
+            child: AppBarWidget('Valuation', null),
             preferredSize: Size.fromHeight(kToolbarHeight)),
         body: Container(
             padding: const EdgeInsets.symmetric(horizontal: 20),

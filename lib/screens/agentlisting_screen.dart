@@ -16,7 +16,7 @@ class AgentListingScreen extends StatelessWidget {
     return Scaffold(
       appBar: const PreferredSize(
         preferredSize: Size.fromHeight(kToolbarHeight),
-        child: AppBarWidget('JIDE TAIWO & CO. ')
+        child: AppBarWidget('JIDE TAIWO & CO. ', null)
       ),
       endDrawerEnableOpenDragGesture: false,
       endDrawer: const MenuMenuOneDrawer(),
