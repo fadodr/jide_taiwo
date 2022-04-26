@@ -75,7 +75,7 @@ class MyApp extends StatelessWidget {
               button: TextStyle(
                   fontFamily: 'Roboto', fontSize: 18, color: Colors.white)),
         ),
-        home: SplashScreen(),
+        home: HomeScreen(),
         routes: {
           AboutusScreen.routename: (ctx) => const AboutusScreen(),
           AgencyScreen.routename: (ctx) => const AgencyScreen(),

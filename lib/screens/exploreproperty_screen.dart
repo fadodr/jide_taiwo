@@ -22,7 +22,6 @@ class ExplorePropertyScreen extends StatefulWidget {
 class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
   final FocusNode _searchfocusNode = FocusNode();
   final value = NumberFormat("#,##0.00", "en_US");
-  List _searches = [];
   List<Property> extractedPropertiesData = [];
   List<Property> propertiesData = [];
   ScrollController listScrollController = ScrollController();
@@ -51,36 +50,28 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
           .then((value) {
         final mapValue = value as Map<String, dynamic>;
         if(mapValue['wentBack'] == false){
-          _searches = mapValue['search'] as List;
-          if (_searches.isNotEmpty) {
-            for (var item in _searches) {
+          final item = mapValue['search'] as Map;
+          if(item.isNotEmpty) {
               if (item['price range'] != null) {
                 final lowPrice = item['price range'].split(' - ')[0];
                 final highPrice = item['price range'].split(' - ')[1];
 
-                propertiesData = extractedPropertiesData
-                    .where((element) =>
-                        element.contract.toString().toLowerCase() ==
-                            item['sale'] ||
-                        element.numberOfRooms == item['bedrooms'] ||
-                        element.numberOfBathrooms == item['bathrooms'] ||
-                        element.type.toString().toLowerCase() == item['type'] ||
+                propertiesData = extractedPropertiesData.where((element) {
+                 return (item.containsKey('contract') ? element.contract!.toLowerCase() == item['contract'] : true) &&
+                        (item.containsKey('bedrooms') ? element.numberOfRooms == item['bedrooms'] : true) &&
+                        (item.containsKey('type') ? element.type!.toLowerCase() == item['type'] : true) &&
+                        (item.containsKey('bathrooms') ? element.numberOfBathrooms == item['bathrooms'] : true) &&
                         (double.parse(lowPrice) <= element.price! &&
-                            element.price! <= double.parse(highPrice)) ||
-                        element.id.toString().toLowerCase() == item['propertyid'])
-                    .toList();
+                            element.price! <= double.parse(highPrice)) &&
+                        (item.containsKey('propertyid') ? element.id!.toLowerCase() == item['propertyid'] : true);}).toList();
               } else {
-                propertiesData = extractedPropertiesData
-                    .where((element) =>
-                        element.contract.toString().toLowerCase() ==
-                            item['sale'] ||
-                        element.numberOfRooms == item['bedrooms'] ||
-                        element.type.toString().toLowerCase() == item['type'] ||
-                        element.numberOfBathrooms == item['bathrooms'] ||
-                        element.id.toString().toLowerCase() == item['propertyid'])
-                    .toList();
+                propertiesData = extractedPropertiesData.where((element) {
+                 return (item.containsKey('contract') ? element.contract!.toLowerCase() == item['contract'] : true) &&
+                        (item.containsKey('bedrooms') ? element.numberOfRooms == item['bedrooms'] : true) &&
+                        (item.containsKey('type') ? element.type!.toLowerCase() == item['type'] : true) &&
+                        (item.containsKey('bathrooms') ? element.numberOfBathrooms == item['bathrooms'] : true) &&
+                        (item.containsKey('propertyid') ? element.id!.toLowerCase() == item['propertyid'] : true);}).toList();
               }
-            }
           } else {
             propertiesData = extractedPropertiesData;
           }
@@ -141,7 +132,6 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
 
   @override
   Widget build(BuildContext context) {
-    print(propertiesData.length);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),

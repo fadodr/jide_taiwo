@@ -14,7 +14,7 @@ class SearchforpropertyScreen extends StatefulWidget {
 
 class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
   Map<String , dynamic> _searches = {
-    'search' : [],
+    'search' : {},
     'wentBack' : true
   };
   TextEditingController _propertyId = TextEditingController();
@@ -62,8 +62,7 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
         onChanged: (value) {
           FocusScope.of(context).requestFocus(FocusNode());
           if(hintText.toLowerCase() != 'location'){
-            _searches['search']
-                .add({hintText.toLowerCase(): value.toString().toLowerCase()});
+            _searches['search'][hintText.toLowerCase()] = value.toString().toLowerCase();
           }
         },
       );
@@ -114,7 +113,7 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
                     width: 20,
                   ),
                   Expanded(
-                      child: _dropdownform('Sale', [
+                      child: _dropdownform('Contract', [
                     'Contract',
                     'Letting',
                     'Lease',
@@ -161,7 +160,7 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
                 controller: _propertyId,
                 focusNode: FocusNode(canRequestFocus: false),
                 onChanged: (value) {
-                  _searches['search'].add({'propertyid': value.toLowerCase()});
+                  _searches['search']['propertyid'] = value.toLowerCase();
                 },
                 decoration: InputDecoration(
                   labelText: 'Property ID',
