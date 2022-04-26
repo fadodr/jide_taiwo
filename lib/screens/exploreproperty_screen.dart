@@ -49,44 +49,47 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
       Navigator.of(context)
           .pushNamed(SearchforpropertyScreen.routename)
           .then((value) {
-        _searches = value as List;
-        if (_searches.isNotEmpty) {
-          for (var item in _searches) {
-            if (item['price range'] != null) {
-              final lowPrice = item['price range'].split(' - ')[0];
-              final highPrice = item['price range'].split(' - ')[1];
+        final mapValue = value as Map<String, dynamic>;
+        if(mapValue['wentBack'] == false){
+          _searches = mapValue['search'] as List;
+          if (_searches.isNotEmpty) {
+            for (var item in _searches) {
+              if (item['price range'] != null) {
+                final lowPrice = item['price range'].split(' - ')[0];
+                final highPrice = item['price range'].split(' - ')[1];
 
-              propertiesData = extractedPropertiesData
-                  .where((element) =>
-                      element.contract.toString().toLowerCase() ==
-                          item['sale'] ||
-                      element.numberOfRooms == item['bedrooms'] ||
-                      element.numberOfBathrooms == item['bathrooms'] ||
-                      element.type.toString().toLowerCase() == item['type'] ||
-                      (double.parse(lowPrice) <= element.price! &&
-                          element.price! <= double.parse(highPrice)) ||
-                      element.id.toString().toLowerCase() == item['propertyid'])
-                  .toList();
-            } else {
-              propertiesData = extractedPropertiesData
-                  .where((element) =>
-                      element.contract.toString().toLowerCase() ==
-                          item['sale'] ||
-                      element.numberOfRooms == item['bedrooms'] ||
-                      element.type.toString().toLowerCase() == item['type'] ||
-                      element.numberOfBathrooms == item['bathrooms'] ||
-                      element.id.toString().toLowerCase() == item['propertyid'])
-                  .toList();
+                propertiesData = extractedPropertiesData
+                    .where((element) =>
+                        element.contract.toString().toLowerCase() ==
+                            item['sale'] ||
+                        element.numberOfRooms == item['bedrooms'] ||
+                        element.numberOfBathrooms == item['bathrooms'] ||
+                        element.type.toString().toLowerCase() == item['type'] ||
+                        (double.parse(lowPrice) <= element.price! &&
+                            element.price! <= double.parse(highPrice)) ||
+                        element.id.toString().toLowerCase() == item['propertyid'])
+                    .toList();
+              } else {
+                propertiesData = extractedPropertiesData
+                    .where((element) =>
+                        element.contract.toString().toLowerCase() ==
+                            item['sale'] ||
+                        element.numberOfRooms == item['bedrooms'] ||
+                        element.type.toString().toLowerCase() == item['type'] ||
+                        element.numberOfBathrooms == item['bathrooms'] ||
+                        element.id.toString().toLowerCase() == item['propertyid'])
+                    .toList();
+              }
             }
+          } else {
+            propertiesData = extractedPropertiesData;
           }
-        } else {
-          propertiesData = extractedPropertiesData;
+          if (listScrollController.hasClients) {
+            final position = listScrollController.position.minScrollExtent;
+            listScrollController.jumpTo(position);
+          }
+          setState(() {});
         }
-        if (listScrollController.hasClients) {
-          final position = listScrollController.position.minScrollExtent;
-          listScrollController.jumpTo(position);
-        }
-        setState(() {});
       });
     }
   }
@@ -138,6 +141,7 @@ class _ExplorePropertyScreenState extends State<ExplorePropertyScreen> {
 
   @override
   Widget build(BuildContext context) {
+    print(propertiesData.length);
     return Scaffold(
       appBar: PreferredSize(
         preferredSize: const Size.fromHeight(kToolbarHeight),

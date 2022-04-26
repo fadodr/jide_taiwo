@@ -13,7 +13,10 @@ class SearchforpropertyScreen extends StatefulWidget {
 }
 
 class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
-  List _searches = [];
+  Map<String , dynamic> _searches = {
+    'search' : [],
+    'wentBack' : true
+  };
   TextEditingController _propertyId = TextEditingController();
 
   @override
@@ -59,7 +62,7 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
         onChanged: (value) {
           FocusScope.of(context).requestFocus(FocusNode());
           if(hintText.toLowerCase() != 'location'){
-            _searches
+            _searches['search']
                 .add({hintText.toLowerCase(): value.toString().toLowerCase()});
           }
         },
@@ -158,7 +161,7 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
                 controller: _propertyId,
                 focusNode: FocusNode(canRequestFocus: false),
                 onChanged: (value) {
-                  _searches.add({'propertyid': value.toLowerCase()});
+                  _searches['search'].add({'propertyid': value.toLowerCase()});
                 },
                 decoration: InputDecoration(
                   labelText: 'Property ID',
@@ -185,6 +188,7 @@ class _SearchforpropertyScreenState extends State<SearchforpropertyScreen> {
                   buttonText: 'Search',
                   borderRadius: 8,
                   ontap: () {
+                    _searches['wentBack'] = false;
                     Navigator.pop(context, _searches);
                   },
                   textColor: Colors.white,
